@@ -9,5 +9,7 @@ My ReactNative Project in HelloWord!
 ### 跳坑指北
 
 > [React Native初始化项目时候报错？react-native init](https://www.jianshu.com/p/c60bdd6f07be)
+>
 > [ReactNative run-android No such file or directory错误](https://blog.csdn.net/wapchief/article/details/79803153)
+>
 > [ReactNative运行 run-android Could not install the app on the device错误](https://blog.csdn.net/wapchief/article/details/79792704)
