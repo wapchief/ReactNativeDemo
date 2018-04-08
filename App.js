@@ -17,12 +17,12 @@ import Toast from 'react-native-root-toast';
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
   'Cmd+D or shake for dev menu,\n',
-  android: 'Double tap R on your keyboard to reload,\n' +
-  'Shake or press menu button for dev menu\n' +
-  '请摇晃手机使用 reload，\n 部分机型可点击选择键,\n' +
+  android:
+  '开启调试：真机请摇晃手机，\n 部分机型可点击选择键,\n' +
   '模拟器请使用 com+m',
 })
 type Props = {};
+//组件前面必须声明 export default关键字 说明该组件是可以导出的 或者说 是允许其他组件或者场景导入的
 export default class App extends Component<Props> {
   render () {
     return (
@@ -53,6 +53,10 @@ export default class App extends Component<Props> {
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={()=>Toast.show('message')}>
           <Text>Show Toast</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={()=>Toast.show("1")}>
+          <Text>start intent</Text>
         </TouchableOpacity>
       </View>
     )
