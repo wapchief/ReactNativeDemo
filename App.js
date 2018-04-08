@@ -12,8 +12,14 @@ import {
   View,
   TouchableOpacity,
   Alert,
+  Button,
 } from 'react-native'
 import Toast from 'react-native-root-toast';
+import { SafeAreaView, StackNavigator } from 'react-navigation'
+import NewsScreen from './NewsScreen'
+// import StackNavigator from 'react-navigation'
+// import {Navigator} from 'react-native-deprecated-custom-components';
+// import AppPageHome from './AppPageHome'
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
   'Cmd+D or shake for dev menu,\n',
@@ -23,7 +29,8 @@ const instructions = Platform.select({
 })
 type Props = {};
 //组件前面必须声明 export default关键字 说明该组件是可以导出的 或者说 是允许其他组件或者场景导入的
-export default class App extends Component<Props> {
+class App extends Component<Props>{
+
   render () {
     return (
       <View style={styles.container}>
@@ -40,28 +47,58 @@ export default class App extends Component<Props> {
           <Text>button确认窗口</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={() => {
-            Alert.alert(
-              '提示',
-              '确定要删除吗?',
-              [
-                {text: '取消', onPress: () => Toast.show('取消')},
-                {text: '确定', onPress: () => Toast.show('确定')},
-              ]
-            )
-          }}>
+          Alert.alert(
+            '提示',
+            '确定要删除吗?',
+            [
+              {text: '取消', onPress: () => Toast.show('取消')},
+              {text: '确定', onPress: () => Toast.show('确定')},
+            ]
+          )
+        }}>
           <Text>button取消、确认窗口</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={()=>Toast.show('message')}>
+        <TouchableOpacity style={styles.button} onPress={() => Toast.show('message')}>
           <Text>Show Toast</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={()=>Toast.show("1")}>
-          <Text>start intent</Text>
-        </TouchableOpacity>
+        <Button
+          style={styles.button}
+          title='进入首页'
+          onPress={() => this.props.navigation.navigate("AppPageHome")}
+        />
       </View>
     )
   }
+
+  _goToMore() {
+    // Toast.show(this.props.navigation.title.toString())
+    // this.props
+    //   .navigation
+    //   .navigate('Details', {
+    //     itemId: 86,
+    //     otherParam: 'anything you want here',
+    // })
+    // const  navigator  = this.props;
+    // if (navigator) {
+    //   try {
+    //     navigator.push({
+    //       name: 'AppPageHome',
+    //       component: AppPageHome,
+    //     })
+    //   }catch (e) {
+    //     Toast.show(e.message)
+    //   }
+    // }
+  }
+
 }
+// const PageHome = StackNavigator({
+//   navigation: { screen: AppPageHome },
+// });
+// const App = StackNavigator({
+//   Main: {screen: AppPageHome},
+// });
 
 const styles = StyleSheet.create({
   container: {
@@ -89,3 +126,9 @@ const styles = StyleSheet.create({
     marginTop:5
   },
 })
+
+export default StackNavigator({
+  AppHome: {
+    screen: App,
+  },
+});
