@@ -15,12 +15,7 @@ import {
   Button,
 } from 'react-native'
 import Toast from 'react-native-root-toast';
-import { SafeAreaView, StackNavigator, TabNavigator } from 'react-navigation'
-import NewsScreen from './NewsScreen'
-import HomeScreen from './HomeScreen'
-// import StackNavigator from 'react-navigation'
-// import {Navigator} from 'react-native-deprecated-custom-components';
-// import AppPageHome from './AppPageHome'
+import AppPageHome from './AppPageHome'
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
   'Cmd+D or shake for dev menu,\n',
@@ -31,6 +26,19 @@ const instructions = Platform.select({
 type Props = {};
 //组件前面必须声明 export default关键字 说明该组件是可以导出的 或者说 是允许其他组件或者场景导入的
 export default class App extends Component<Props> {
+
+  _pressButton(id) {
+    const {navigator} = this.props;
+    if (navigator) {
+      navigator.push({
+        name: 'AppPageHome',
+        component: AppPageHome,
+        params: {
+          id: id
+        }
+      })
+    }
+  }
 
   render () {
     return (
@@ -66,7 +74,7 @@ export default class App extends Component<Props> {
         <Button
           style={styles.button}
           title='进入首页'
-          onPress={() => this.props.navigation.navigate("AppPageHome")}
+          onPress={() => this._pressButton(3)}
         />
       </View>
     )

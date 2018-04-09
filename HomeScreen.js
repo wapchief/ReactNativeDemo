@@ -1,9 +1,9 @@
 
 import React,{Component} from 'react';
 import { View, Text, Button } from 'react-native'
-import { StackNavigator, TabNavigator } from 'react-navigation'
-import MyScreen from './MyScreen'
-import App from './App'
+
+import Toast from 'react-native-root-toast'
+import NewsDetails from './project/NewsDetails'
 export default class HomeScreen extends Component {
 
   render() {
@@ -24,7 +24,7 @@ export default class HomeScreen extends Component {
         <Button
           title="Go to App"
           style={{marginTop:10}}
-          onPress={() => this.props.navigation.navigate('App')}
+          onPress={() => this.props.navigation.navigate('Home')}
         />
       </View>
     )

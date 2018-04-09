@@ -21,13 +21,6 @@ import NewsScreen from './NewsScreen'
 import HomeScreen from './HomeScreen'
 import MyScreen from './MyScreen'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' +
-  'Cmd+D or shake for dev menu,\n',
-  android:
-  '开启调试：真机请摇晃手机，\n 部分机型可点击选择键,\n' +
-  '模拟器请使用 com+m',
-})
 type Props = {};
 
 //组件前面必须声明 export default关键字 说明该组件是可以导出的 或者说 是允许其他组件或者场景导入的
@@ -62,6 +55,7 @@ const TabViewPages = {  // 表示各个页面路由配置,让导航器知道需�
     },
   },
 };
+//tab配置
 const TabViewConfigs = {
   // initialRouteName: 'HomeScreen',  // 初始显示的Tab对应的页面路由名称
   tabBarComponent: TabBarTop, // Tab选项卡组件，有 TabBarBottom 和 TabBarTop 两个值，在iOS中默认为 TabBarBottom ，在Android中默认为 TabBarTop 。
@@ -70,14 +64,13 @@ const TabViewConfigs = {
   indicatorStyle: {backgroundColor: '#00000000'},
   tabBarOptions: {} // 在属性TabBarBottom与TabBarTop中有所不同
 };
-
+//标题栏
 const TitleBar = {  // 表示导航器的配置，包括导航器的初始页面、各个页面之间导航的动画、页面的配置选项等等
   // initialRouteName: 'HomeScreen',
   navigationOptions: {
-    title: 'Welcome to learn React Native!',
     headerStyle: {backgroundColor: '#5da8ff'},  // 设置导航头部样式
-    headerTitleStyle: {color: '#333333'},  // 设置导航头部标题样式
-  }
+    headerTitleStyle: {color: '#333333',fontWeight: 'bold',justifyContent:'center'},  // 设置导航头部标题样式
+  },
 };
 
 
@@ -89,7 +82,7 @@ const StackRouteConfigs = {
   }
 };
 
-const RootStackView = StackNavigator(StackRouteConfigs);
+const RootStackView = StackNavigator(StackRouteConfigs,TitleBar);
 
 
 

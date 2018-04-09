@@ -1,4 +1,6 @@
 import { AppRegistry } from 'react-native';
 import App from './App';
 import AppPageHome from './AppPageHome'
-AppRegistry.registerComponent('ReactNativeDemo', () => AppPageHome);
+import StartActivity from './project/StartActivity'
+import AppStart from './project/NewsDetails'
+AppRegistry.registerComponent('ReactNativeDemo', () => StartActivity);
