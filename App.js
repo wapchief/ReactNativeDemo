@@ -15,8 +15,9 @@ import {
   Button,
 } from 'react-native'
 import Toast from 'react-native-root-toast';
-import { SafeAreaView, StackNavigator } from 'react-navigation'
+import { SafeAreaView, StackNavigator, TabNavigator } from 'react-navigation'
 import NewsScreen from './NewsScreen'
+import HomeScreen from './HomeScreen'
 // import StackNavigator from 'react-navigation'
 // import {Navigator} from 'react-native-deprecated-custom-components';
 // import AppPageHome from './AppPageHome'
@@ -29,7 +30,7 @@ const instructions = Platform.select({
 })
 type Props = {};
 //组件前面必须声明 export default关键字 说明该组件是可以导出的 或者说 是允许其他组件或者场景导入的
-class App extends Component<Props>{
+export default class App extends Component<Props> {
 
   render () {
     return (
@@ -70,65 +71,34 @@ class App extends Component<Props>{
       </View>
     )
   }
-
-  _goToMore() {
-    // Toast.show(this.props.navigation.title.toString())
-    // this.props
-    //   .navigation
-    //   .navigate('Details', {
-    //     itemId: 86,
-    //     otherParam: 'anything you want here',
-    // })
-    // const  navigator  = this.props;
-    // if (navigator) {
-    //   try {
-    //     navigator.push({
-    //       name: 'AppPageHome',
-    //       component: AppPageHome,
-    //     })
-    //   }catch (e) {
-    //     Toast.show(e.message)
-    //   }
-    // }
   }
 
-}
-// const PageHome = StackNavigator({
-//   navigation: { screen: AppPageHome },
-// });
-// const App = StackNavigator({
-//   Main: {screen: AppPageHome},
-// });
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#F5FCFF',
+    },
+    welcome: {
+      fontSize: 20,
+      textAlign: 'center',
+      margin: 10,
+    },
+    instructions: {
+      textAlign: 'center',
+      color: '#333333',
+      marginBottom: 5,
+    },
+    // 按钮style
+    button: {
+      padding: 10,
+      borderColor: 'blue',
+      borderWidth: 1,
+      borderRadius: 5,
+      marginTop: 5
+    },
+  })
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  // 按钮style
-  button: {
-    padding: 10,
-    borderColor: 'blue',
-    borderWidth: 1,
-    borderRadius: 5,
-    marginTop:5
-  },
-})
 
-export default StackNavigator({
-  AppHome: {
-    screen: App,
-  },
-});
+

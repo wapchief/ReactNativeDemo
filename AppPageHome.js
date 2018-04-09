@@ -65,7 +65,7 @@ const TabViewPages = {  // 表示各个页面路由配置,让导航器知道需�
 const TabViewConfigs = {
   // initialRouteName: 'HomeScreen',  // 初始显示的Tab对应的页面路由名称
   tabBarComponent: TabBarTop, // Tab选项卡组件，有 TabBarBottom 和 TabBarTop 两个值，在iOS中默认为 TabBarBottom ，在Android中默认为 TabBarTop 。
-  tabBarPosition: 'top', // 设置选项卡的位置，在顶部或是底部，有'top'与'bottom'可选
+  tabBarPosition: 'bottom', // 设置选项卡的位置，在顶部或是底部，有'top'与'bottom'可选
   lazy: false,  // 是否懒加载页面
   indicatorStyle: {backgroundColor: '#00000000'},
   tabBarOptions: {} // 在属性TabBarBottom与TabBarTop中有所不同
