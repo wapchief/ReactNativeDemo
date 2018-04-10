@@ -6,12 +6,8 @@
 
 import React, { Component } from 'react'
 import {
-  Platform,
   StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  Alert,
+  Image,
 } from 'react-native'
 import Toast from 'react-native-root-toast';
 
@@ -35,8 +31,11 @@ const TabViewPages = {  // 表示各个页面路由配置,让导航器知道需�
   Home: {  // 路由名称
     screen: HomeScreen,  // 对应的路由页面
     navigationOptions:{
-      // tabBarLabel: '首页',
-      title:'首页'
+      tabBarLabel:'首页',
+      tabBarIcon: ({tintColor}) =>
+        <Image
+        style={{width: 80, height: 80, marginTop: 20}}
+        source={require('./res/drawable/head_other.png')}/>,
     },
   },
   News: {
@@ -44,6 +43,10 @@ const TabViewPages = {  // 表示各个页面路由配置,让导航器知道需�
     navigationOptions: {  // 指定路由页面的配置选项
       tabBarLabel: '新闻',   // 表示tab的标题
       title: '新闻',  // 可用作头部标题 headerTitle ，或者Tab标题 tabBarLabel
+      tabBarIcon: ({tintColor}) =>
+        <Image
+          style={{width: 80, height: 80, marginTop: 20}}
+          source={require('./res/drawable/head_other.png')}/>,
     },
   }
   ,
@@ -52,6 +55,10 @@ const TabViewPages = {  // 表示各个页面路由配置,让导航器知道需�
     navigationOptions: {
       tabBarLabel: '我的',
       title: '我的',
+      tabBarIcon: ({tintColor}) =>
+        <Image
+          style={{width: 80, height: 80, marginTop: 20}}
+          source={require('./res/drawable/head_other.png')}/>,
     },
   },
 };
@@ -62,7 +69,10 @@ const TabViewConfigs = {
   tabBarPosition: 'bottom', // 设置选项卡的位置，在顶部或是底部，有'top'与'bottom'可选
   lazy: false,  // 是否懒加载页面
   indicatorStyle: {backgroundColor: '#00000000'},
-  tabBarOptions: {} // 在属性TabBarBottom与TabBarTop中有所不同
+  //显示tabIcon
+  tabBarOptions: {
+    showIcon: true,
+  } // 在属性TabBarBottom与TabBarTop中有所不同
 };
 //标题栏
 const TitleBar = {  // 表示导航器的配置，包括导航器的初始页面、各个页面之间导航的动画、页面的配置选项等等
@@ -120,6 +130,19 @@ const styles = StyleSheet.create({
   //指示器
   indicator:{
     backgroundColor:'#F5FCFF'
-  }
+  },
+  tabBarImage: {
+    width: 24,
+    height: 24,
+  },
+  tabBar: {
+    backgroundColor: 'white',
+  },
+  tabBarLabel: {
+    fontSize: 12,
+  },
+  tabBarItem: {
+    height: 56,
+  },
 })
 
