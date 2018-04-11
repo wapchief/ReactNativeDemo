@@ -1,13 +1,32 @@
 import React, { Component } from 'react'
 import { View, Text, ScrollView, StyleSheet, Button } from 'react-native'
-import { StackNavigator } from 'react-navigation'
-import App from './App'
-import { Navigator } from 'react-native-deprecated-custom-components'
-import DetailsScreen from './project/NewsDetails'
 
-class NewsScreens extends Component {
+const newsUrl = 'http://toutiao-ali.juheapi.com/toutiao/index'
+const appCode = 'APPCODE b8a415fd4c884651ba74827cdbe3ccbc'
+const header = new Headers()
+export default class NewsScreen extends Component {
+
+  getRequest (url) {
+    /*网络请求的配置*/
+    header.append('Authorization', appCode)
+    const opts = {
+      method: 'GET',
+      headers: header
+    }
+    fetch(url, opts)
+      .then((response) => {
+        return response.text();
+      })
+      .then((responseText) => {
+        alert(responseText);
+      })
+      .catch((error) => {
+        alert(error)
+      })
+  }
 
   render () {
+
     return (
       <ScrollView>
         <Text style={styles.text} onPress={() => {
@@ -16,9 +35,8 @@ class NewsScreens extends Component {
             itemId: 86,
             otherParam: 'First Details',
           })
-        }}>新闻详情
-        </Text>
-        <Text style={styles.text}>NewsScreen-ScrollView</Text>
+        }}>新闻详情</Text>
+        <Text style={styles.text} onPress={() => this.getRequest(newsUrl)}>get请求</Text>
         <Text style={styles.text}>NewsScreen-ScrollView</Text>
 
         <Text style={styles.text}>NewsScreen-ScrollView</Text>
@@ -29,6 +47,7 @@ class NewsScreens extends Component {
 
       </ScrollView>
     )
+
   }
 }
 
@@ -37,30 +56,3 @@ const styles = StyleSheet.create({
     marginTop: 100
   }
 })
-
-const RootStack = StackNavigator(
-  {
-    News:{
-      screen: NewsScreens,
-      navigationOptions:{
-        //隐藏子路由标题栏
-        header:null
-      }
-    },
-    Details:{
-      screen: DetailsScreen,
-      navigationOptions:{
-        tab:null
-      }
-    }
-  },
-  {
-    navigationOptions: {
-    },
-  }
-)
-export default class AppStart extends React.Component {
-  render() {
-    return <RootStack />;
-  }
-}

@@ -24,7 +24,7 @@ export default class HomeScreen extends Component {
         <Button
           title="Go to App"
           style={{marginTop:10}}
-          onPress={() => this.props.navigation.navigate('Home')}
+          onPress={() => this.props.navigation.goBack()}
         />
       </View>
     )

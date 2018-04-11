@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import Toast from 'react-native-root-toast'
 import { StackNavigator } from 'react-navigation'
-import NewsScreen from './NewsScreen'
 import ImagePicker from 'react-native-image-picker'
 
 export default class MyScreen extends Component {
@@ -13,9 +12,6 @@ export default class MyScreen extends Component {
 
   selectPhotoTapped() {
     const options = {
-      quality: 1.0,
-      maxWidth: 500,
-      maxHeight: 500,
       takePhotoButtonTitle:'相机',
       cancelButtonTitle:'取消',
       chooseFromLibraryButtonTitle:'图库',
@@ -23,6 +19,7 @@ export default class MyScreen extends Component {
         skipBackup: true,
       },
       title:'',
+      //支持添加自定义选项
       customButtons: [
         // {name: 'fb', title: 'Choose Photo from Facebook'},
       ],
