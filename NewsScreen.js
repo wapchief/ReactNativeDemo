@@ -1,5 +1,15 @@
 import React, { Component } from 'react'
-import { View, Text, ScrollView, StyleSheet, Button, FlatList, TouchableOpacity, Image } from 'react-native'
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Button,
+  FlatList,
+  TouchableOpacity,
+  Image,
+  RefreshControl
+} from 'react-native'
 import Dimensions from 'Dimensions'
 const newsUrl = 'http://toutiao-ali.juheapi.com/toutiao/index'
 const appCode = 'APPCODE b8a415fd4c884651ba74827cdbe3ccbc'
@@ -11,6 +21,9 @@ export default class NewsScreen extends Component {
     super(props);
     //在这里定义json返回的key
     this.state={
+      //下拉刷新
+      refreshing: false,
+      //data数据
       resultJson:null,
       error_code:'',
       reason:'',
@@ -19,6 +32,7 @@ export default class NewsScreen extends Component {
       }
     };
   }
+
 
   //在最初的render方法调用之后立即调用。
   //网络请求、事件订阅等操作可以在这个方法中调用。
@@ -36,6 +50,7 @@ export default class NewsScreen extends Component {
     }
     fetch(url, opts)
       .then((response) => {
+        this.setState({refreshing: false});
         return response.json();
       })
       .then((responseJson) => {
@@ -56,9 +71,20 @@ export default class NewsScreen extends Component {
         alert(error)
       })
   }
+
+  //下拉刷新
+  _onRefresh() {
+    this.setState({refreshing: true});
+    this.getRequest(newsUrl)
+  }
+
   //列表点击事件
   itemClick(item, index) {
-    alert('新闻标题：' + item.author_name + '\n时间：' + item.date+'\n'+item.thumbnail_pic_s);
+    // alert('新闻标题：' + item.author_name + '\n时间：' + item.date+'\n'+item.thumbnail_pic_s);
+    this.props.navigation.navigate('Details', {
+      title: item.title,
+      url:item.url,
+    })
   }
 
   //FlatList的key
@@ -70,21 +96,27 @@ export default class NewsScreen extends Component {
       <TouchableOpacity
         activeOpacity={0.5}
         onPress={this.itemClick.bind(this, item, index)}>
-        <View style={{backgroundColor:'#ffffff',padding:10}}>
-          <View style={{flexDirection:'row'}}>
-            <Image source={{uri:item.thumbnail_pic_s02}}  style={styles.imgStyle}/>
-          <Text style={{marginRight:10,marginLeft:10}}>{item.title}</Text>
+        <View style={{backgroundColor:'#ffffff',padding:10,flexDirection:'row'}}>
+
+          <Image source={{uri:item.thumbnail_pic_s02}}  style={styles.imgStyle}/>
+
+          <View style={{flex:1,flexDirection:'column'}}>
+
+          <Text style={{paddingRight:10,marginLeft:10,width:screenWidth*0.65,height:80*0.7}}>{item.title}</Text>
+
+            <View style={{flexDirection:'row',alignItems:'center',paddingLeft:10,paddingRight:10}}>
+              <Text style={styles.subTitle}>{item.author_name}</Text>
+              <Text style={styles.subTitle}> {item.date}</Text>
+            </View>
           </View>
-          <View style={{flexDirection:'row',justifyContent:'flex-end',alignItems:'center'}}>
-          <Text style={styles.subTitle}>来源：{item.author_name}</Text>
-            <Text style={styles.subTitle}>  {item.date}</Text>
-          </View>
+
         </View>
 
       </TouchableOpacity>
     );
   }
   //headerList
+  /*ListHeaderComponent={this._headerView()}*/
   _headerView(){
     return (
       <View>
@@ -112,13 +144,18 @@ export default class NewsScreen extends Component {
   render () {
 
     return (
-        <FlatList   //列表组件
-          style={{marginTop: 20}}
+        <FlatList
           data={this.state.result.data}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
-          ListHeaderComponent={this._headerView()}
-          ItemSeparatorComponent={this._itemDivide}/>
+          ItemSeparatorComponent={this._itemDivide}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this._onRefresh.bind(this)}
+            />
+          }
+        />
 
     )
 
@@ -132,12 +169,11 @@ const styles = StyleSheet.create({
   subTitle:{
    marginTop:10,
    color:'#666666',
-    fontSize:12
+    fontSize:12,
+    flex:1
   },
   imgStyle:{
-    // 设置宽度
-    width:120,
-    // 设置高度
+    width:screenWidth*0.3,
     height:80
   }
 })
