@@ -1,54 +1,77 @@
 /* 首页 */
 import React,{Component} from 'react';
-import { View, Text, Button, Image, StyleSheet } from 'react-native'
+import { View, Text, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import Swiper from 'react-native-swiper';
 import Dimensions from 'Dimensions'
+import Toast from 'react-native-root-toast'
 const screenWidth = Dimensions.get('window').width;
+const urlBanner = 'http://www.wanandroid.com/banner/json'
 export default class HomeScreen extends Component {
 
   constructor(props){
     super(props);
     this.state = {
-      isShow: false,
-      items:[]
+      isShow:false,
+      data:'',
+      items:[],
+      urls:[]
     }
   }
 
   componentDidMount() {
-    let item;
-    for (let i = 0; i < 3; i++) {
-      switch (i) {
-        case 0: {
-          item = 'http://blogdailyherald.com/wp-content/uploads/2013/04/382065_560557460633306_930109857_n.jpg';
-          break;
-        }
-        case 1: {
-          item = 'http://img0.pclady.com.cn/pclady/pet/choice/cat/1701/6.jpg';
-          break;
-        }
-        default: {
-          item = 'https://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/3812b31bb051f819dc048662dbb44aed2e73e7f1.jpg';
-          break;
-        }
-      }
-      this.state.items.push(item);
+    this.getRequest(urlBanner)
+  }
 
-    }
-    this.setState({
-      isShow: true,
-      items: this.state.items
+  //监听
+  //列表点击事件
+  itemClick(item, index) {
+    // alert('新闻标题：' + item.author_name + '\n时间：' + item.date+'\n'+item.thumbnail_pic_s);
+    this.props.navigation.navigate('Details', {
+      title: index,
+      url:this.state.urls[index],
     })
+    // alert(this.state.items[0]+',index:'+index)
   }
 
   //轮播
-  _imageBanner(){
+  _imageBanner  () {
+        //cover: 等比例放大; center:不变; contain:不变; stretch:填充;
     return(
-    this.state.items.map((item, index) => {
-      //cover: 等比例放大; center:不变; contain:不变; stretch:填充;
-      return (<Image style={{height: 200, width:screenWidth}} key = {index} resizeMode='cover' source={{uri: item}}/>)
-    })
+      this.state.items.map((item,index)=> {
+        return (
+          <TouchableOpacity
+            key={index}
+            activeOpacity={0.5}
+            onPress={this.itemClick.bind(this, item, index)}>
+            <Image
+              key={index}
+              style={{height: 200, width: screenWidth}}
+                   resizeMode='cover'
+                   source={{uri: item}}/>
+
+          </TouchableOpacity>
+        )
+      })
+
     )
   }
+
+  //重新遍历map集合
+  addMap(resultData){
+
+    for (let i = 0; i < resultData.length; i++) {
+      this.state.items.push(resultData[i].imagePath)
+      this.state.urls.push(resultData[i].url)
+    }
+    this.setState({
+      items: this.state.items,
+      urls: this.state.urls,
+      isShow: true
+    })
+  }
+
+
+  //请求banner
   getRequest (url) {
     /*网络请求的配置*/
     const opts = {
@@ -61,27 +84,23 @@ export default class HomeScreen extends Component {
       })
       .then((responseJson) => {
         this.setState({
-          resultJson:responseJson,
-          error_code:responseJson.error_code,
-          reason:responseJson.reason,
-          result:responseJson.result,
-          data:responseJson.result.data,
-          // name:responseJson.result.data.name,
-          // date:responseJson.result.data.date,
-          // title:responseJson.result.data.title,
-
+          data:responseJson.data,
         });
-        // alert(this.state.reason)
+        // alert(this.state.data[0].imagePath)
+        this.addMap(responseJson.data)
       })
       .catch((error) => {
         alert(error)
       })
   }
+
   render() {
     return (
       <View style={{ flex: 1,alignItems:'flex-start'}}>
         <View style={{height: 200,alignItems:'flex-start'}}>
-        <Swiper autoplay = {true}
+        <Swiper
+                key={this.state.urls.length}
+                autoplay = {true}
                 height = {200}
                 showsPagination = {true}
                 dotColor="white"
@@ -101,7 +120,7 @@ export default class HomeScreen extends Component {
         <Button
           title="Go to App"
           style={{marginTop:10}}
-          onPress={() => this.props.navigation.goBack()}
+          onPress={() => Toast.show(this.state.data[0].title)}
         />
       </View>
     )
