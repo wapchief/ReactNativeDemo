@@ -1,6 +1,6 @@
 /* 首页 */
 import React,{Component} from 'react';
-import { View, Text, Button, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Button, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native'
 import Swiper from 'react-native-swiper';
 import Dimensions from 'Dimensions'
 import Toast from 'react-native-root-toast'
@@ -19,7 +19,12 @@ export default class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    this.getRequest(urlBanner)
+    setTimeout(()=>{
+      this.setState({
+        isShow: true
+      })
+      this.getRequest(urlBanner)
+    },0)
   }
 
   //监听
@@ -66,7 +71,6 @@ export default class HomeScreen extends Component {
     this.setState({
       items: this.state.items,
       urls: this.state.urls,
-      isShow: true
     })
   }
 
@@ -95,19 +99,18 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-    return (
-      <View style={{ flex: 1,alignItems:'flex-start'}}>
-        <View style={{height: 200,alignItems:'flex-start'}}>
+    if(this.state.isShow){
+      return (
+      <ScrollView style={{}}>
         <Swiper
+                removeClippedSubviews={false}
                 key={this.state.urls.length}
                 autoplay = {true}
                 height = {200}
                 showsPagination = {true}
-                dotColor="white"
                 horizontal={true}>
           {this._imageBanner()}
         </Swiper>
-        </View>
         <Text
           title="Go to My"
           onPress={() => this.props.navigation.navigate('My')}
@@ -122,8 +125,14 @@ export default class HomeScreen extends Component {
           style={{marginTop:10}}
           onPress={() => Toast.show(this.state.data[0].title)}
         />
-      </View>
-    )
+      </ScrollView>
+    )}else {
+        return (
+          <View style={styles.imgView}>
+            <Image source={ require('./res/drawable/head_other.png')} style={styles.bannerImg} />
+          </View>
+        )
+    }
   }
 }
 
@@ -135,7 +144,17 @@ const styles = StyleSheet.create({
     flex:1
   },
   imgStyle:{
-    width:screenWidth,
-    height:150
+    width:'100%',
+    height:200,
+    flex:1
+  },
+  imgView: {
+    flex: 1,
+    height: 200,
+  },
+  bannerImg: {
+    width: '100%',
+    height: 200,
+    flex: 1
   }
 })
