@@ -5,6 +5,7 @@ My ReactNative Project in HelloWord!
 
 ### 学习笔记
 
+> [React Native 结合ScrollableTab、RefreshControl和FlatList实现新闻分类列表](https://www.jianshu.com/p/7087ab7d26d4)
 
 ### 跳坑指北
 
