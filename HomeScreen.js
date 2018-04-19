@@ -269,22 +269,22 @@ export default class HomeScreen extends Component {
       <TouchableOpacity
         activeOpacity={0.5}
         onPress={this.itemClick.bind(this, item, index)}>
-        <View style={{backgroundColor: '#ffffff', padding: 10, flexDirection: 'row'}}>
-
-          <View style={{flex: 1, flexDirection: 'column'}}>
+        <View style={{backgroundColor: '#ffffff', padding: 10, flexDirection: 'column'}}>
 
             <Text style={{
               marginRight: 10,
               marginLeft: 10,
               width: screenWidth-20,
-              height: 80 * 0.7
             }}>{item.value.title}</Text>
 
-            <View style={{flexDirection: 'row', paddingLeft: 10, paddingRight: 10}}>
-              <Text style={styles.subTitle}>{item.value.chapterName}</Text>
+            <View style={{flex: 1,flexDirection: 'row', paddingLeft: 10, paddingRight: 10,marginTop:10}}>
+              <Text style={{
+                width:screenWidth-100,
+                marginTop:10,
+                color:'#666666',
+                fontSize:12}}>{item.value.chapterName}</Text>
               <Text style={styles.subTitle}> {item.value.niceDate}</Text>
             </View>
-          </View>
 
         </View>
 

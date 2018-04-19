@@ -67,11 +67,6 @@ class RootApp extends Component{
         title='进入首页'
         onPress={() => this.props.navigation.navigate('Tabs')}
       />
-        <Button
-          style={styles.button}
-          title='进入详情'
-          onPress={() => this.props.navigation.navigate('Details')}
-        />
     </View>
     )
   }
