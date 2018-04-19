@@ -250,8 +250,8 @@ export default class HomeScreen extends Component {
   itemClick (item, index) {
     // alert('新闻标题：' + item.author_name + '\n时间：' + item.date+'\n'+item.thumbnail_pic_s);
     this.props.navigation.navigate('Details', {
-      title: item.title,
-      url: item.link,
+      title: item.value.title,
+      url: item.value.link,
     })
   }
   //列表分割线
