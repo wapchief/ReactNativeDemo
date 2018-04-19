@@ -3,7 +3,6 @@ import { View, Text, ScrollView, Image, StyleSheet, TouchableOpacity } from 'rea
 import Toast from 'react-native-root-toast'
 import { StackNavigator } from 'react-navigation'
 import ImagePicker from 'react-native-image-picker'
-
 export default class MyScreen extends Component {
   state = {
     avatarSource: null,
@@ -24,7 +23,6 @@ export default class MyScreen extends Component {
         // {name: 'fb', title: 'Choose Photo from Facebook'},
       ],
     };
-
     ImagePicker.showImagePicker(options, (response) => {
       console.log('Response = ', response);
 
@@ -50,43 +48,15 @@ export default class MyScreen extends Component {
     });
   }
 
-  selectVideoTapped() {
-    const options = {
-      title: 'Video Picker',
-      takePhotoButtonTitle: 'Take Video...',
-      mediaType: 'video',
-      videoQuality: 'medium'
-    };
-
-    ImagePicker.showImagePicker(options, (response) => {
-      console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('User cancelled video picker');
-      }
-      else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      }
-      else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-      }
-      else {
-        this.setState({
-          videoSource: response.uri
-        });
-      }
-    });
-  }
-
   render () {
     return (
       <ScrollView>
         <View style={styles.rootView}>
           <TouchableOpacity
-            onPress={()=>this.selectPhotoTapped()}>
+            onPress={() => this.selectPhotoTapped()}>
             <Image
               style={{width: 80, height: 80, marginTop: 20}}
-              source={require('./res/drawable/head_other.png')}/>
+              source={this.state.avatarSource === null ? require('./res/drawable/head_other.png') : this.state.avatarSource}/>
           </TouchableOpacity>
           <Text style={{marginTop: 10}} onPress={() => Toast.show('修改用户名')}>
             用户名

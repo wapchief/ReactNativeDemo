@@ -10,7 +10,7 @@ My ReactNative Project in HelloWord!
 * [react-navigation 1.5.11](https://github.com/react-navigation/react-navigation)
 * [react-native-swiper 1.5.13](https://github.com/leecade/react-native-swiper)
 * [react-native-scrollable-tab-view 0.8.0](https://github.com/skv-headless/react-native-scrollable-tab-view)
-* [react-native-image-picker 0.26.7](react-community / react-native-image-picker)
+* [react-native-image-picker 0.26.7](https://github.com/react-community/react-native-image-picker)
 * [react-native-root-toast 3.0.1](https://github.com/magicismight/react-native-root-toast)
 
 
