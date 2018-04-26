@@ -11,6 +11,7 @@
     "react-native": "0.54.4",
     "react-native-deprecated-custom-components": "latest",
     "react-native-image-picker": "^0.26.7",
+    "react-native-popup-dialog": "^0.11.46",
     "react-native-scrollable-tab-view": "^0.8.0",
     "react-native-swiper": "^1.5.13",
     "react-navigation": "^1.5.11"

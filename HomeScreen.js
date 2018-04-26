@@ -51,7 +51,6 @@ export default class HomeScreen extends Component {
     },0)
   }
 
-  //监听
   //列表点击事件
   itemClick(item, index) {
     // alert('新闻标题：' + item.author_name + '\n时间：' + item.date+'\n'+item.thumbnail_pic_s);
@@ -62,6 +61,12 @@ export default class HomeScreen extends Component {
     // alert(this.state.items[0]+',index:'+index)
   }
 
+  //banner点击
+  bannerItemClick(item, index) {
+    this.props.navigation.navigate('Details', {
+      url:this.state.urls[index],
+    })
+  }
   //轮播
   _imageBanner  () {
         //cover: 等比例放大; center:不变; contain:不变; stretch:填充;
@@ -71,7 +76,7 @@ export default class HomeScreen extends Component {
           <TouchableOpacity
             key={index}
             activeOpacity={0.5}
-            onPress={this.itemClick.bind(this, item, index)}>
+            onPress={this.bannerItemClick.bind(this, item, index)}>
             <Image
               key={index}
               style={{height: 200, width: screenWidth}}
