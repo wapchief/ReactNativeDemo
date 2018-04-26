@@ -1,6 +1,8 @@
 # ReactNativeDemo
 My ReactNative Project in HelloWord!
 
+![](https://github.com/wapchief/ReactNativeDemo/blob/master/screenshots/img_home.png?raw=true)
+
 > 警告：克隆下来必须修改 android 目录下 local.properties SDK路径，将路径改成自己的。否则会找不到。
 
 ### 依赖
